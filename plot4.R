@@ -11,37 +11,6 @@ daysDF$Voltage <- as.numeric(as.character(daysDF$Voltage))
 daysDF <- mutate(daysDF, dateTime = paste(daysDF$Date, daysDF$Time, sep=" "))
 daysDF$dateTime <- strptime(daysDF$dateTime, "%Y-%m-%d %H:%M:%S")
 
-# Make the first histogram, for plot1.PNG
-png(file="plot1.PNG", bg="transparent", width = 480, height = 480, units = "px")
-hist(daysDF$Global_active_power, col="red", main="Global Active Power", xlab="Global Active Power (kilowatts)")
-dev.off()
-
-# Make the line graph, for plot2.PNG
-png(file="plot2.PNG", bg="transparent")
-plot(daysDF$dateTime,daysDF$Global_active_power, type="l", main="Global Active Power per Day", xlab="", ylab="Global Active Power (kilowatts)")
-dev.off()
-
-# Make the third line graph, plot3.PNG
-png(file="plot3.PNG", bg="transparent", width = 480, height = 480, units = "px")
-plot(daysDF$dateTime, daysDF$Sub_metering_1, 
-  type="l", col="black", 
-  xlab="", ylab="Energy sub metering"
-)
-lines(daysDF$dateTime, daysDF$Sub_metering_2, type="l", col="red")
-lines(daysDF$dateTime, daysDF$Sub_metering_3, type="l", col="blue")
-legend("topright", c("Sub_metering_1","Sub_metering_2","Sub_metering_3"), lwd=c(2.5,2.5), lty=c(1,1,1), col=c("black","red","blue"))
-dev.off()
-
-# Make the voltage over days plot
-png(file="plot5.PNG", bg="transparent", width = 480, height = 480, units = "px")
-plot(daysDF$dateTime, daysDF$Voltage, type="l", col="black", xlab="dateTime", ylab="Voltage")
-dev.off()
-
-# Make the global_reactive_power over days plot
-png(file="plot6.PNG", bg="transparent", width = 480, height = 480, units = "px")
-plot(daysDF$dateTime, daysDF$Global_reactive_power, type="l", col="black", xlab="dateTime", ylab="Global_reactive_power")
-dev.off()
-
 # Make the combined PNG, plot4.PNG
 png(file="plot4.PNG", bg="transparent", width = 480, height = 480, units = "px")
 par(mfrow=c(2,2))
@@ -56,5 +25,3 @@ lines(daysDF$dateTime, daysDF$Sub_metering_3, type="l", col="blue")
 legend("topright", c("Sub_metering_1","Sub_metering_2","Sub_metering_3"), lwd=c(2.5,2.5), lty=c(1,1,1), col=c("black","red","blue"))
 plot(daysDF$dateTime, daysDF$Global_reactive_power, type="l", col="black", xlab="dateTime", ylab="Global_reactive_power")
 dev.off()
-
-
